@@ -2,9 +2,7 @@ import { useEffect, useState } from "react";
 import { Product } from "../entities";
 
 const ProductDetail = ({ productId }: { productId: number }) => {
-  const [product, setProduct] = useState<Product | undefined>(
-    undefined
-  );
+  const [product, setProduct] = useState<Product | undefined>(undefined);
   const [isLoading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -17,10 +15,10 @@ const ProductDetail = ({ productId }: { productId: number }) => {
     setLoading(true);
     fetch("/products/" + productId)
       .then((res) => res.json())
-      .then((data) => setProduct(data))
+      .then((data: Product | undefined) => setProduct(data))
       .catch((err) => setError((err as Error).message))
       .finally(() => setLoading(false));
-  }, []);
+  }, [productId]);
 
   if (isLoading) return <div>Loading...</div>;
 
